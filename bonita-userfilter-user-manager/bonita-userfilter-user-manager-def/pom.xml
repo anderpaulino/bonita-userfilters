@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>bonita-userfilter-user-manager</artifactId>
 		<groupId>org.bonitasoft.userfilter</groupId>
-		<version>6.2.2</version>
+		<version>6.2.2-SNAPSHOT</version>
 	</parent>
 
 	<artifactId>bonita-userfilter-user-manager-def</artifactId>
