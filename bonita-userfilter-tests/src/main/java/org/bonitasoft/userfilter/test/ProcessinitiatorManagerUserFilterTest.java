@@ -71,7 +71,7 @@ public class ProcessinitiatorManagerUserFilterTest extends APITestUtil {
 		businessArchiveBuilder.addUserFilters(new BarResource("initiator-manager-impl-1.0.0.impl", IOUtils.toByteArray(inputStream)));
 		inputStream.close();
 		
-		login();
+		loginOnDefaultTenantWithDefaultTechnicalLogger();
 		matti = getIdentityAPI().createUser("matti", "bpm");
 		aleksi = getIdentityAPI().createUser("aleksi", "bpm");
 		juho = getIdentityAPI().createUser("juho", "bpm");
@@ -94,57 +94,57 @@ public class ProcessinitiatorManagerUserFilterTest extends APITestUtil {
 		getProcessAPI().addUserToActor(delivery, definition, juho.getId());
 		
 		getProcessAPI().enableProcess(definition.getId());
-		logout();
+		logoutOnTenant();
 	}
 	
 	@After
 	public void tearDown() throws Exception{
-		login();
+		loginOnDefaultTenantWithDefaultTechnicalLogger();
 		disableAndDeleteProcess(definition);
 		deleteUser(matti);
 		deleteUser(aleksi);
 		deleteUser(juho);
 		deleteUser(processManager);
 		deleteUser(managerOfProcessManager);
-		logout();
+		logoutOnTenant();
 	}
 	
 	
     @Test
     public void testProcessinitiatorManagerUserFilterTest() throws Exception {
-        loginWith("matti", "bpm");
+        loginOnDefaultTenantWith("matti", "bpm");
         final ProcessInstance processInstance = getProcessAPI().startProcess(definition.getId());
         
         waitForUserTask("step1", processInstance);
-        logout();
+        logoutOnTenant();
         
         checkAssignations();
     }
     
     @Test
     public void testProcessinitiatorManagerUserFilterTestWithStartFor() throws Exception {
-        loginWith("processManager", "bpm");
+        loginOnDefaultTenantWith("processManager", "bpm");
         final ProcessInstance processInstance = getProcessAPI().startProcess(matti.getId(), definition.getId());
 
         waitForUserTask("step1", processInstance);
-        logout();
+        logoutOnTenant();
         
         checkAssignations();
     }
     
 	private void checkAssignations() throws BonitaException {
-		loginWith("matti", "bpm");
+		loginOnDefaultTenantWith("matti", "bpm");
 		checkNumberOfAssignationFor(0, matti);
-        logout();
-        loginWith("aleksi", "bpm");
+        logoutOnTenant();
+        loginOnDefaultTenantWith("aleksi", "bpm");
         checkNumberOfAssignationFor(1, aleksi);
-        logout();
-        loginWith("juho", "bpm");
+        logoutOnTenant();
+        loginOnDefaultTenantWith("juho", "bpm");
         checkNumberOfAssignationFor(0, juho);
-        logout();
-        loginWith("managerOfProcessManager", "bpm");
+        logoutOnTenant();
+        loginOnDefaultTenantWith("managerOfProcessManager", "bpm");
         checkNumberOfAssignationFor(0, managerOfProcessManager);
-        logout();
+        logoutOnTenant();
 	}
 	
 	private void checkNumberOfAssignationFor(final int expected, final User user) {

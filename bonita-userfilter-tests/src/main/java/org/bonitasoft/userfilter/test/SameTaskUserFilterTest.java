@@ -58,7 +58,7 @@ public class SameTaskUserFilterTest extends APITestUtil {
 		final String qualityGuys = "Quality Guys";
 		final String devName = "aDeveloper";
 		
-		login();
+		loginOnDefaultTenantWithDefaultTechnicalLogger();
 		aDev = getIdentityAPI().createUser(devName, "bpm");
 		processManager = getIdentityAPI().createUser("processManager", "bpm");
 		logoutThenloginAs(devName, "bpm");
@@ -89,11 +89,11 @@ public class SameTaskUserFilterTest extends APITestUtil {
 	
     @After
 	public void tearDown() throws BonitaException {
-		login();
+		loginOnDefaultTenantWithDefaultTechnicalLogger();
         disableAndDeleteProcess(definition);
         deleteUser(aDev);
         deleteUser(processManager);
-        logout();
+        logoutOnTenant();
 	}
 	
 	
@@ -106,24 +106,24 @@ public class SameTaskUserFilterTest extends APITestUtil {
         final HumanTaskInstance task2 = (HumanTaskInstance) waitForTaskInState(processInstance, TASK2_NAME, TestStates.getReadyState());
         assertEquals(aDev.getId(), task2.getAssigneeId());
         assertEquals(TestStates.getReadyState(), task2.getState());
-        logout();
+        logoutOnTenant();
     }
     
     @Test
     public void testSameTaskUserFilterWithDoFor() throws Exception {
         final HumanTaskInstance task1 = (HumanTaskInstance) waitForTaskInState(processInstance, TASK1_NAME, TestStates.getReadyState());
         final long userId = aDev.getId();
-        logout();
-        loginWith(processManager.getUserName(), "bpm");
+        logoutOnTenant();
+        loginOnDefaultTenantWith(processManager.getUserName(), "bpm");
         getProcessAPI().assignUserTask(task1.getId(), userId);
         getProcessAPI().executeFlowNode(userId, task1.getId());
-        logout();
+        logoutOnTenant();
         
-        login();
+    loginOnDefaultTenantWithDefaultTechnicalLogger();
         final HumanTaskInstance task2 = (HumanTaskInstance) waitForTaskInState(processInstance, TASK2_NAME, TestStates.getReadyState());
         assertEquals(aDev.getId(), task2.getAssigneeId());
         assertEquals(TestStates.getReadyState(), task2.getState());
-        logout();
+        logoutOnTenant();
     }
     
 }

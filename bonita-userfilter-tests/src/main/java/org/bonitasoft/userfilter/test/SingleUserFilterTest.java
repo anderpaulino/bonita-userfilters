@@ -50,7 +50,7 @@ public class SingleUserFilterTest extends APITestUtil {
         final String grouillotName = "grouillot";
         final String activityName = "step1";
 
-        login();
+    loginOnDefaultTenantWithDefaultTechnicalLogger();
 
         final User chief = getIdentityAPI().createUser(chiefName, "bpm");
         final User grouillot = getIdentityAPI().createUser(grouillotName, "bpm");
@@ -77,13 +77,13 @@ public class SingleUserFilterTest extends APITestUtil {
 
         getProcessAPI().enableProcess(definition.getId());
 
-        logout();
-        loginWith(grouillotName, "bpm");
+        logoutOnTenant();
+        loginOnDefaultTenantWith(grouillotName, "bpm");
 
         final ProcessInstance processInstance = getProcessAPI().startProcess(definition.getId());
 
-        logout();
-        loginWith(chiefName, "bpm");
+        logoutOnTenant();
+        loginOnDefaultTenantWith(chiefName, "bpm");
 
         final WaitForStep waitForStep = waitForStep( activityName, processInstance, TestStates.getReadyState());
         Assert.assertTrue(waitForStep.waitUntil());
@@ -93,7 +93,7 @@ public class SingleUserFilterTest extends APITestUtil {
         disableAndDeleteProcess(definition);
         deleteUser(chief);
         deleteUser(grouillot);
-        logout();
+        logoutOnTenant();
     }
 
 }
