@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definition:ConnectorDefinition xmlns:definition="http://www.bonitasoft.org/ns/connector/definition/6.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<id>custom-user-info</id>
+	<version>1.0.0</version>
+
+	<category id="organization" icon="actors_mapping.png" />
+
+	<input name="customUserInfoName" type="java.lang.String" mandatory="true" />
+	<input name="customUserInfoValue" type="java.lang.String" mandatory="true" />
+	<input name="usePartialMatch" type="java.lang.Boolean" mandatory="false" defaultValue="false" />
+	<input name="autoAssign" type="java.lang.Boolean" mandatory="false" defaultValue="true" />
+
+	<page id="config">
+		<widget id="customUserInfoName" inputName="customUserInfoName" xsi:type="definition:Text" />
+		<widget id="customUserInfoValue" inputName="customUserInfoValue" xsi:type="definition:Text" />
+		<widget id="usePartialMatch" inputName="usePartialMatch" xsi:type="definition:Checkbox" />
+		<widget id="autoAssign" inputName="autoAssign" xsi:type="definition:Checkbox" />
+	</page>
+
+</definition:ConnectorDefinition>

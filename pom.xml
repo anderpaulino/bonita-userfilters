@@ -49,6 +49,7 @@
 		<module>bonita-userfilter-user-manager</module>
 		<module>bonita-userfilter-single-user</module>
 		<module>bonita-userfilter-same-task-user</module>
+		<module>bonita-userfilter-custom-user-info</module>
 		<!-- must be last -->
 		<module>bonita-userfilter-package</module>
 	</modules>
@@ -73,11 +74,6 @@
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
-				<groupId>junit</groupId>
-				<artifactId>junit</artifactId>
-				<version>4.11</version>
-			</dependency>
-			<dependency>
 				<artifactId>bonita-common</artifactId>
 				<groupId>org.bonitasoft.engine</groupId>
 				<version>${engine.version}</version>
@@ -86,6 +82,24 @@
 				<groupId>org.bonitasoft.userfilter</groupId>
 				<artifactId>bonita-userfilter-assembly</artifactId>
 				<version>${project.parent.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>junit</groupId>
+				<artifactId>junit</artifactId>
+				<version>4.11</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.assertj</groupId>
+				<artifactId>assertj-core</artifactId>
+				<version>1.5.0</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>org.mockito</groupId>
+				<artifactId>mockito-all</artifactId>
+				<version>1.9.5</version>
+				<scope>test</scope>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

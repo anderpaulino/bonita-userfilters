@@ -3,7 +3,7 @@
 	<id>single-user</id>
 	<version>1.0.0</version>
 
-	<category id="process" icon="process.gif" />
+	<category id="organization" icon="actors_mapping.png" />
 
 	<input name="userId" type="java.lang.Long" mandatory="true" />
 

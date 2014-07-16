@@ -36,10 +36,7 @@ public class SameTaskUserUserFilter extends AbstractUserFilter {
 
     @Override
     public void validateInputParameters() throws ConnectorValidationException {
-        final String usertaskName = (String) getInputParameter("usertaskName");
-        if (usertaskName == null || "".equals(usertaskName.trim())) {
-            throw new ConnectorValidationException("The usertask name cannot be null or empty");
-        }
+        validateStringInputParameterIsNotNulOrEmpty("usertaskName");
     }
 
     @Override

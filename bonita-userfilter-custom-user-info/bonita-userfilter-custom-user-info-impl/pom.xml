@@ -1,0 +1,70 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <groupId>org.bonitasoft.userfilter</groupId>
+    <artifactId>bonita-userfilter-custom-user-info</artifactId>
+    <version>6.4.0-SNAPSHOT</version>
+  </parent>
+  
+  <artifactId>bonita-userfilter-custom-user-info-impl</artifactId>
+  <version>1.0.0-SNAPSHOT</version>
+  
+  <dependencies>
+		<dependency>
+			<groupId>org.bonitasoft.userfilter</groupId>
+			<artifactId>bonita-userfilter-custom-user-info-def</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+  		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+		</dependency>
+		<dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+        </dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-all</artifactId>
+		</dependency>
+		
+  </dependencies>
+  
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<dependencies>
+					<dependency>
+						<groupId>org.bonitasoft.userfilter</groupId>
+						<artifactId>bonita-userfilter-assembly</artifactId>
+						<version>${project.parent.version}</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<id>assemble</id>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<descriptorRefs>
+								<descriptorRef>userfilter-assembly</descriptorRef>
+							</descriptorRefs>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                </configuration>
+            </plugin>
+		</plugins>
+	</build>
+  
+</project>
