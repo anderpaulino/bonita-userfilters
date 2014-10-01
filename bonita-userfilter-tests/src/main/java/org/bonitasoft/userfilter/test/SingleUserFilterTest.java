@@ -85,7 +85,7 @@ public class SingleUserFilterTest extends APITestUtil {
         logoutOnTenant();
         loginOnDefaultTenantWith(chiefName, "bpm");
 
-        final WaitForStep waitForStep = waitForStep( activityName, processInstance, TestStates.getReadyState());
+        final WaitForStep waitForStep = waitForStep(activityName, processInstance, TestStates.READY);
         Assert.assertTrue(waitForStep.waitUntil());
         final ActivityInstance task = waitForStep.getResult();
         Assert.assertEquals(grouillot.getId(), ((UserTaskInstance) task).getAssigneeId());

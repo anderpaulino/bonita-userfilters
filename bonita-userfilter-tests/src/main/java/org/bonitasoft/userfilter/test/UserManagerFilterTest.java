@@ -77,7 +77,7 @@ public class UserManagerFilterTest extends APITestUtil {
         getProcessAPI().addUserToActor(qualityGuys, definition, grouillot.getId());
         getProcessAPI().enableProcess(definition.getId());
 
-        logoutOnTenant(); 
+        logoutOnTenant();
         loginOnDefaultTenantWith(subordinateName, "bpm");
 
         final ProcessInstance processInstance = getProcessAPI().startProcess(definition.getId());
@@ -85,7 +85,7 @@ public class UserManagerFilterTest extends APITestUtil {
         logoutOnTenant();
         loginOnDefaultTenantWith(chiefName, "bpm");
 
-        final WaitForStep task = waitForStep(activityName, processInstance, TestStates.getReadyState());
+        final WaitForStep task = waitForStep(activityName, processInstance, TestStates.READY);
         Assert.assertEquals(chief.getId(), ((HumanTaskInstance) task.getResult()).getAssigneeId());
 
         disableAndDeleteProcess(definition);

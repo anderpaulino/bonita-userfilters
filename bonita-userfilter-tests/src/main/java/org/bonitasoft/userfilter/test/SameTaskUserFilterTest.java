@@ -46,15 +46,19 @@ import org.junit.runner.RunWith;
 public class SameTaskUserFilterTest extends APITestUtil {
 	
 	private ProcessInstance processInstance;
+
 	private User aDev;
+
 	private ProcessDefinition definition;
+
 	private User processManager;
+
 	private final static String TASK2_NAME = "step2";
+
 	private final static String TASK1_NAME = "step1";
 
-
 	@Before
-	public void setUp() throws Exception{
+    public void setUp() throws Exception {
 		final String qualityGuys = "Quality Guys";
 		final String devName = "aDeveloper";
 		
@@ -96,22 +100,21 @@ public class SameTaskUserFilterTest extends APITestUtil {
         logoutOnTenant();
 	}
 	
-	
     @Test
     public void testSameTaskUserFilter() throws Exception {
-        final HumanTaskInstance task1 = (HumanTaskInstance) waitForTaskInState(processInstance, TASK1_NAME, TestStates.getReadyState());
+        final HumanTaskInstance task1 = (HumanTaskInstance) waitForTaskInState(processInstance, TASK1_NAME, TestStates.READY);
         final long userId = aDev.getId();
         assignAndExecuteStep(task1, userId);
 
-        final HumanTaskInstance task2 = (HumanTaskInstance) waitForTaskInState(processInstance, TASK2_NAME, TestStates.getReadyState());
+        final HumanTaskInstance task2 = (HumanTaskInstance) waitForTaskInState(processInstance, TASK2_NAME, TestStates.READY);
         assertEquals(aDev.getId(), task2.getAssigneeId());
-        assertEquals(TestStates.getReadyState(), task2.getState());
+        assertEquals(TestStates.READY.getStateName(), task2.getState());
         logoutOnTenant();
     }
     
     @Test
     public void testSameTaskUserFilterWithDoFor() throws Exception {
-        final HumanTaskInstance task1 = (HumanTaskInstance) waitForTaskInState(processInstance, TASK1_NAME, TestStates.getReadyState());
+        final HumanTaskInstance task1 = (HumanTaskInstance) waitForTaskInState(processInstance, TASK1_NAME, TestStates.READY);
         final long userId = aDev.getId();
         logoutOnTenant();
         loginOnDefaultTenantWith(processManager.getUserName(), "bpm");
@@ -120,9 +123,9 @@ public class SameTaskUserFilterTest extends APITestUtil {
         logoutOnTenant();
         
     loginOnDefaultTenantWithDefaultTechnicalUser();
-        final HumanTaskInstance task2 = (HumanTaskInstance) waitForTaskInState(processInstance, TASK2_NAME, TestStates.getReadyState());
+        final HumanTaskInstance task2 = (HumanTaskInstance) waitForTaskInState(processInstance, TASK2_NAME, TestStates.READY);
         assertEquals(aDev.getId(), task2.getAssigneeId());
-        assertEquals(TestStates.getReadyState(), task2.getState());
+        assertEquals(TestStates.READY.getStateName(), task2.getState());
         logoutOnTenant();
     }
     
