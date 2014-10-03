@@ -16,7 +16,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.bonitasoft.bonita-userfilterter</groupId>
+            <groupId>org.bonitasoft.userfilter</groupId>
             <artifactId>bonita-userfilter-user-manager-impl</artifactId>
             <version>${project.version}</version>
         </dependency>
