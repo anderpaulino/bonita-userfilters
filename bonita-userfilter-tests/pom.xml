@@ -16,7 +16,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.bonitasoft.userfilter</groupId>
+            <groupId>org.bonitasoft.bonita-userfilterter</groupId>
             <artifactId>bonita-userfilter-user-manager-impl</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -74,8 +74,8 @@
             <scope>runtime</scope>
         </dependency>
 		<!-- Atomikos -->
-	<dependency>
-				<groupId>com.atomikos</groupId>
+	   <dependency>
+			<groupId>com.atomikos</groupId>
 			<artifactId>transactions</artifactId>
             <version>${atomikos.version}</version>
 		</dependency>
@@ -98,7 +98,7 @@
 			<groupId>com.atomikos</groupId>
 			<artifactId>transactions-jta</artifactId>
             <version>${atomikos.version}</version>
-
+        </dependency>
     </dependencies>
 
     <build>
