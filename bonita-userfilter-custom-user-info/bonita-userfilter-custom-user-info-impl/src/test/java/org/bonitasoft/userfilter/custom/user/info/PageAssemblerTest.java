@@ -12,28 +12,27 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-
 @RunWith(MockitoJUnitRunner.class)
 public class PageAssemblerTest {
-   
+
     @Mock
     private PageRetriever<Long> retriever;
-    
+
     @InjectMocks
     private PageAssembler<Long> assembler;
 
     @SuppressWarnings("unchecked")
     @Test
-    public void getAllElementsShouldIterateAllPages() throws Exception {
-        //given
+    public void getAllElementsShouldIterateAllPages() {
+        // given
         when(retriever.nextPage()).thenReturn(Arrays.asList(1L, 2L, 3L), Arrays.asList(4L, 5L));
         when(retriever.getMaxPageSize()).thenReturn(3);
-        
-        //when
+
+        // when
         List<Long> elements = assembler.getAllElements();
 
-        //then
+        // then
         assertThat(elements).containsExactly(1L, 2L, 3L, 4L, 5L);
     }
-    
+
 }

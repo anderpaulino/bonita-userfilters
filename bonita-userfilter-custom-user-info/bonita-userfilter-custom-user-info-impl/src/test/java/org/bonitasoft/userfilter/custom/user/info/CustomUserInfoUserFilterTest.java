@@ -27,9 +27,9 @@ public class CustomUserInfoUserFilterTest {
     private static final String INFO_NAME_KEY = "customUserInfoName";
 
     private static final String INFO_VALUE_KEY = "customUserInfoValue";
-    
+
     private static final String USE_PARTIAL_MATCH_KEY = "usePartialMatch";
-    
+
     private static final String AUTO_ASSIGN_KEY = "autoAssign";
 
     private static final int MAX_RESULTS = 3;
@@ -54,7 +54,7 @@ public class CustomUserInfoUserFilterTest {
     private CustomUserInfoUserFilter filter;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         filter = new CustomUserInfoUserFilter();
         filter.setAPIAccessor(accessor);
         filter.setMaxResults(3);
@@ -88,7 +88,7 @@ public class CustomUserInfoUserFilterTest {
     }
 
     @Test
-    public void validateInputParameters_throws_ConnectorValidationException_if_customUserInfoName_is_set_to_null_or_empty() throws Exception {
+    public void validateInputParameters_throws_ConnectorValidationException_if_customUserInfoName_is_set_to_null_or_empty() {
         // given
         // only value has valid value
         Map<String, Object> parameters = new HashMap<String, Object>();
@@ -122,7 +122,7 @@ public class CustomUserInfoUserFilterTest {
     }
 
     @Test
-    public void validateInputParameters_throws_ConnectorValidationException_if_customUserInfoValue_is_set_to_null_or_empty() throws Exception {
+    public void validateInputParameters_throws_ConnectorValidationException_if_customUserInfoValue_is_set_to_null_or_empty() {
         // given
         // only name has valid value
         Map<String, Object> parameters = new HashMap<String, Object>();
@@ -168,78 +168,76 @@ public class CustomUserInfoUserFilterTest {
         // then
         assertThat(filteredUsers).containsExactly(2L, 3L);
     }
-    
-    
+
     @Test
-    public void shoulAutoAssign_should_return_true_if_property_autoAssign_is_not_set() throws Exception {
-        //when
+    public void shoulAutoAssign_should_return_true_if_property_autoAssign_is_not_set() {
+        // when
         boolean autoAssign = filter.shouldAutoAssignTaskIfSingleResult();
 
-        //then
+        // then
         assertThat(autoAssign).isTrue();
     }
 
     @Test
-    public void shoulAutoAssign_should_return_false_if_property_autoAssign_is_set_to_false() throws Exception {
-        //given
-        filter.setInputParameters(Collections.<String, Object>singletonMap(AUTO_ASSIGN_KEY, false));
-        
-        //when
+    public void shoulAutoAssign_should_return_false_if_property_autoAssign_is_set_to_false() {
+        // given
+        filter.setInputParameters(Collections.<String, Object> singletonMap(AUTO_ASSIGN_KEY, false));
+
+        // when
         boolean autoAssign = filter.shouldAutoAssignTaskIfSingleResult();
-        
-        //then
+
+        // then
         assertThat(autoAssign).isFalse();
     }
 
     @Test
-    public void shoulAutoAssign_should_return_true_if_property_autoAssign_is_set_to_true() throws Exception {
-        //given
-        filter.setInputParameters(Collections.<String, Object>singletonMap(AUTO_ASSIGN_KEY, true));
-        
-        //when
+    public void shoulAutoAssign_should_return_true_if_property_autoAssign_is_set_to_true() {
+        // given
+        filter.setInputParameters(Collections.<String, Object> singletonMap(AUTO_ASSIGN_KEY, true));
+
+        // when
         boolean autoAssign = filter.shouldAutoAssignTaskIfSingleResult();
-        
-        //then
+
+        // then
         assertThat(autoAssign).isTrue();
     }
-    
-    
+
     @Test
-    public void shouldUsePartialMatch_should_return_false_if_key_userPartialMatch_is_not_set() throws Exception {
-        //when
+    public void shouldUsePartialMatch_should_return_false_if_key_userPartialMatch_is_not_set() {
+        // when
         Boolean usePartialMatch = filter.shouldUsePartialMatch();
 
-        //then
+        // then
         assertThat(usePartialMatch).isFalse();
     }
 
     @Test
-    public void shouldUsePartialMatch_should_return_true_if_key_userPartialMatch_is_set_to_true() throws Exception {
-        filter.setInputParameters(Collections.<String, Object>singletonMap(USE_PARTIAL_MATCH_KEY, true));
-        //when
+    public void shouldUsePartialMatch_should_return_true_if_key_userPartialMatch_is_set_to_true() {
+        filter.setInputParameters(Collections.<String, Object> singletonMap(USE_PARTIAL_MATCH_KEY, true));
+        // when
         Boolean usePartialMatch = filter.shouldUsePartialMatch();
-        
-        //then
+
+        // then
         assertThat(usePartialMatch).isTrue();
     }
 
     @Test
-    public void shouldUsePartialMatch_should_return_false_if_key_userPartialMatch_is_set_to_false() throws Exception {
-        filter.setInputParameters(Collections.<String, Object>singletonMap(USE_PARTIAL_MATCH_KEY, false));
-        //when
+    public void shouldUsePartialMatch_should_return_false_if_key_userPartialMatch_is_set_to_false() {
+        filter.setInputParameters(Collections.<String, Object> singletonMap(USE_PARTIAL_MATCH_KEY, false));
+        // when
         Boolean usePartialMatch = filter.shouldUsePartialMatch();
-        
-        //then
+
+        // then
         assertThat(usePartialMatch).isFalse();
     }
 
     @Test
-    public void shouldUsePartialMatch_should_return_false_if_key_userPartialMatch_is_set_to_null() throws Exception {
-        filter.setInputParameters(Collections.<String, Object>singletonMap(USE_PARTIAL_MATCH_KEY, null));
-        //when
+    public void shouldUsePartialMatch_should_return_false_if_key_userPartialMatch_is_set_to_null() {
+        filter.setInputParameters(Collections.<String, Object> singletonMap(USE_PARTIAL_MATCH_KEY, null));
+        // when
         Boolean usePartialMatch = filter.shouldUsePartialMatch();
-        
-        //then
+
+        // then
         assertThat(usePartialMatch).isFalse();
     }
 
