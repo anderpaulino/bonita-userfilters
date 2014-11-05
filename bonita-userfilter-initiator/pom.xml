@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>bonita-userfilter</artifactId>
 		<groupId>org.bonitasoft.userfilter</groupId>
-		<version>6.3.8</version>
+		<version>6.3.8-SNAPSHOT</version>
 	</parent>
 	<artifactId>bonita-userfilter-initiator</artifactId>
 	<packaging>pom</packaging>
