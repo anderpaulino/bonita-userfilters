@@ -29,8 +29,6 @@ import org.bonitasoft.engine.expression.ExpressionBuilder;
 import org.bonitasoft.engine.identity.User;
 import org.bonitasoft.engine.identity.UserCreator;
 import org.bonitasoft.engine.test.APITestUtil;
-import org.bonitasoft.engine.test.TestStates;
-import org.bonitasoft.engine.test.wait.WaitForStep;
 import org.bonitasoft.userfilter.identity.UserManagerUserFilter;
 import org.junit.Assert;
 import org.junit.Test;
@@ -85,8 +83,8 @@ public class UserManagerFilterTest extends APITestUtil {
         logoutOnTenant();
         loginOnDefaultTenantWith(chiefName, "bpm");
 
-        final WaitForStep task = waitForStep(activityName, processInstance, TestStates.READY);
-        Assert.assertEquals(chief.getId(), ((HumanTaskInstance) task.getResult()).getAssigneeId());
+        final HumanTaskInstance task = waitForUserTask(activityName, processInstance);
+        Assert.assertEquals(chief.getId(), task.getAssigneeId());
 
         disableAndDeleteProcess(definition);
         deleteUser(chief);
