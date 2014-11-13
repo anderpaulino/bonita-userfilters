@@ -30,6 +30,8 @@ import org.bonitasoft.engine.bpm.process.impl.ProcessDefinitionBuilder;
 import org.bonitasoft.engine.expression.ExpressionBuilder;
 import org.bonitasoft.engine.identity.User;
 import org.bonitasoft.engine.test.APITestUtil;
+import org.bonitasoft.engine.test.TestStates;
+import org.bonitasoft.engine.test.wait.WaitForStep;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -48,7 +50,7 @@ public class SingleUserFilterTest extends APITestUtil {
         final String grouillotName = "grouillot";
         final String activityName = "step1";
 
-        loginOnDefaultTenantWithDefaultTechnicalUser();
+    loginOnDefaultTenantWithDefaultTechnicalUser();
 
         final User chief = getIdentityAPI().createUser(chiefName, "bpm");
         final User grouillot = getIdentityAPI().createUser(grouillotName, "bpm");
@@ -83,7 +85,9 @@ public class SingleUserFilterTest extends APITestUtil {
         logoutOnTenant();
         loginOnDefaultTenantWith(chiefName, "bpm");
 
-        final ActivityInstance task = waitForUserTask(activityName, processInstance);
+        final WaitForStep waitForStep = waitForStep(activityName, processInstance, TestStates.READY);
+        Assert.assertTrue(waitForStep.waitUntil());
+        final ActivityInstance task = waitForStep.getResult();
         Assert.assertEquals(grouillot.getId(), ((UserTaskInstance) task).getAssigneeId());
 
         disableAndDeleteProcess(definition);
